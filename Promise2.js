@@ -11,7 +11,7 @@ function Promise(fn) {
   }
 
   function resolve(value) {
-    setTimeout(function() {
+    setTimeout(function() { //setTimeout将该回调函数
       promise._resolves.forEach(function (callback){
         callback(value);
       })
@@ -20,3 +20,11 @@ function Promise(fn) {
 
   fn(resolve);
 }
+
+//WRONG!!
+var a = Promise((resolve)=>{console.log("Hello"); resolve("3000")});
+console.log(a);
+
+//CORRECT
+// Here we didn't use the DIY Promise cuz then() is not working!
+new Promise((resolve)=>{console.log("Hello");resolve("3000")}).then((value)=>console.log("Swanf has "+value+" RMB"));
